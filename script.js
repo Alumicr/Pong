@@ -7,19 +7,22 @@ function setup() {
 
   // creats canvas and ball
   cnv = new Canvas(windowWidth, windowHeight);
-  ball = new Sprite(800, 200, 80, "d");
+  ball = new Sprite(800, 200, 50, "d");
   ball.shapeColor = color("white");
-  ball.vel.x = -5;
-  ball.vel.y = 0;
-  ball.bounciness = 0;
+  ball.vel.x = -15;
+  ball.vel.y = 1;
+  ball.bounciness = 1;
+  ball.friction = 10;
+  ball.drag = 0;
 
   // makes the paddle
   paddle = new Sprite(200, 500, 10, 90, 'k');
   paddle.shapeColor = color("white");
   paddle.vel.y = 0;
+  paddle.bounciness = 1;
   walls();
 
-
+  // paddle movement
   document.addEventListener("keydown", function(event) {
 
     if (event.code == 'ArrowUp') {
