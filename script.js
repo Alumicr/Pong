@@ -1,6 +1,9 @@
 //  start of code 
 // vars
-var score = 0;
+var gameOver = false;
+// lets
+let score = 0;
+let timer = 0;
 
 function setup() {
 
@@ -18,8 +21,11 @@ function setup() {
   paddle = new Sprite(200, 500, 10, 90, 'k');
   paddle.color = color("white");
   paddle.vel.y = 0;
+
+
   walls();
   ball.collide(paddle, increaseScore);
+  setInterval(gameTimer, 1000);
   // paddle movementa
   document.addEventListener("keydown", function(event) {
 
@@ -66,22 +72,36 @@ function draw() {
   if (ball.collide(wallGroup)) {
     if (ball.collide(wallLH)) {
       //game over text
+      console.log("game over");
       textSize(30);
       fill("red");
-      text("Game over! you got a score of: " + score + "!", width / 4, 200);
-      noLoop(); 
+      text("Game over! you got a score of: " + score + "!\nThe game lasted " + timer + " secconds!", width / 4, 200);
+      gameOver = true;
+      noLoop();
       return;
     }
   }
 
-  // displays score text
+  //displays score text
   textSize(40);
   fill('white');
-  text("Score: " + score, 20, 42)
+  text("Score: " + score, 20, 42);
+
+  //timer text
+  textSize(50);
+  fill('white');
+  text(timer, width - 65, 60);
 }
 
 //players score
 function increaseScore() {
   score++;
   console.log("players score is " + score);
+}
+
+// game timer
+function gameTimer() {
+  if (gameOver == false) {
+    timer += 1;
+  }
 }
