@@ -1,10 +1,12 @@
 //  start of code 
+// vars
+var score = 0;
 
 function setup() {
 
   // creats canvas and ball
   cnv = new Canvas(windowWidth, windowHeight - 10);
-  ball = new Sprite(1200, 200, 50, "d");
+  ball = new Sprite(width / 2, height / 2, 50, "d");
   ball.color = color("white");
   ball.vel.x = -5;
   ball.vel.y = 9;
@@ -17,21 +19,21 @@ function setup() {
   paddle.color = color("white");
   paddle.vel.y = 0;
   walls();
-
+  ball.collide(paddle, increaseScore);
   // paddle movementa
   document.addEventListener("keydown", function(event) {
 
-    if (event.code == 'ArrowUp'  ||  event.code == "KeyW") {
+    if (event.code == 'ArrowUp' || event.code == "KeyW") {
       paddle.vel.y = -8;
     }
-    else if (event.code == 'ArrowDown' ||  event.code == "KeyS") {
+    else if (event.code == 'ArrowDown' || event.code == "KeyS") {
       paddle.vel.y = 8;
 
     }
   })
 
   document.addEventListener("keyup", function(event) {
-    if (event.code === 'ArrowUp' ||  event.code == "KeyS" ||  event.code == "KeyW" || event.code == 'ArrowDown') {
+    if (event.code === 'ArrowUp' || event.code == "KeyS" || event.code == "KeyW" || event.code == 'ArrowDown') {
       paddle.vel.y = 0;
     }
   })
@@ -59,5 +61,27 @@ function walls() {
 function draw() {
   // background color
   background("black");
+
+  // checks if ball collies with left wall and stops game
+  if (ball.collide(wallGroup)) {
+    if (ball.collide(wallLH)) {
+      //game over text
+      textSize(30);
+      fill("red");
+      text("Game over! you got a score of: " + score + "!", width / 4, 200);
+      noLoop(); 
+      return;
+    }
+  }
+
+  // displays score text
+  textSize(40);
+  fill('white');
+  text("Score: " + score, 20, 42)
 }
 
+//players score
+function increaseScore() {
+  score++;
+  console.log("players score is " + score);
+}
