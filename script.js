@@ -97,6 +97,12 @@ function draw() {
 function increaseScore() {
   score++;
   console.log("players score is " + score);
+  if (score == 3){
+    wallRH.bounciness = 1.5;
+  }
+  if (score == 8){
+    wallRH.bounciness = 2;
+  }
 }
 
 // game timer
@@ -105,3 +111,4 @@ function gameTimer() {
     timer += 1;
   }
 }
+
